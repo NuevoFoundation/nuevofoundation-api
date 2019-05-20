@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C32F0065-6623-430D-9F14-A6E03D21B7E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{77557D07-5E5C-446F-8DBA-6A0DD293B40A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{C32F0065-6623-430D-9F14-A6E03D21B7E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C32F0065-6623-430D-9F14-A6E03D21B7E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C32F0065-6623-430D-9F14-A6E03D21B7E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77557D07-5E5C-446F-8DBA-6A0DD293B40A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77557D07-5E5C-446F-8DBA-6A0DD293B40A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77557D07-5E5C-446F-8DBA-6A0DD293B40A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77557D07-5E5C-446F-8DBA-6A0DD293B40A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
