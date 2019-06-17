@@ -111,7 +111,25 @@ namespace DataAccess
       }
       catch (DocumentClientException e)
       {
-        if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+        if (e.StatusCode == System.Net.HttpStatusCode.NotFound && _collectionId == "members")
+        {
+          await _client.CreateDocumentCollectionAsync(
+            UriFactory.CreateDatabaseUri(_databaseId),
+            new DocumentCollection
+            {
+              Id = _collectionId,
+              UniqueKeyPolicy = new UniqueKeyPolicy
+              {
+                UniqueKeys =
+                  new Collection<UniqueKey>
+                  {
+                      new UniqueKey { Paths = new Collection<string> { "/email" }},
+                  }
+              }
+            },
+            new RequestOptions { OfferThroughput = 400 });
+        }
+        else if (e.StatusCode == System.Net.HttpStatusCode.NotFound && _collectionId == "virtualsessions")
         {
           await _client.CreateDocumentCollectionAsync(
             UriFactory.CreateDatabaseUri(_databaseId),

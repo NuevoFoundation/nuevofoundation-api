@@ -94,7 +94,6 @@ namespace API
       Settings.Email = Configuration["Email"];
       Settings.EmailPassword = Configuration["EmailPassword"];
       Settings.TenantId = Configuration["TenantId"];
-      Settings.FrontendUrl = Configuration["FrontendUrl"];
       Settings.JwtIssuer = Configuration["JwtIssuer"];
       Settings.JwtAudience = Configuration["JwtAudience"];
       Settings.JwtSecretKey = Configuration["JwtSecretKey"];

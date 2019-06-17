@@ -24,7 +24,7 @@ namespace API.Mailer
         message.To.Add(email);
       }
       var mailBody = ReadHtmlFile("NewVirtualSession");
-      mailBody = mailBody.Replace("<virtualSessionUrl>", $"{Settings.FrontendUrl}/virtual-sessions/{virtualSessionId.ToString()}");
+      mailBody = mailBody.Replace("<virtualSessionUrl>", $"{Settings.JwtAudience}/virtual-sessions/{virtualSessionId.ToString()}");
       message.Body = mailBody;
       message.BodyEncoding = System.Text.Encoding.UTF8;
       message.Subject = "Nuevo Foundation - Virtual Session Opportunity";

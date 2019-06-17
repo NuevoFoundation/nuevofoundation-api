@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using API.Mailer;
 using API.Http;
 using Microsoft.AspNetCore.Authorization;
+using API.Helpers;
+using API.DTOs;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace API.Controllers
 {
-
   [Route("api/[controller]")]
   public class VirtualSessionsController : ControllerBase
   {
@@ -42,13 +43,14 @@ namespace API.Controllers
     #if !DEBUG
     [Authorize]
     #endif
-    public async Task Post([FromBody]VirtualSession virtualSession)
+    public async Task<IActionResult> Post([FromBody]VirtualSession virtualSession)
     {
       virtualSession.Id = Guid.NewGuid();
       virtualSession.VolunteerId = Guid.Empty;
       await _virtualSessionsStorage.CreateItemAsync(virtualSession);
       var volunteerEmails = await GetCurrentVolunteerEmails();
       await _mailer.SendNewVirtualSessionMail(volunteerEmails, virtualSession.Id);
+      return new CreatedResult(Url.RouteUrl(virtualSession.Id), virtualSession);
     }
 
     // PUT api/virtualsessions/5
@@ -75,7 +77,7 @@ namespace API.Controllers
     {
       var volunteerEmails = new List<string>();
       var volunteers = await _membersStorage.GetItemsAsync(m => m.MemberType == "volunteer");
-      foreach(var volunteer in volunteers)
+      foreach (var volunteer in volunteers)
       {
         volunteerEmails.Add(volunteer.Email);
       }

@@ -13,7 +13,6 @@ namespace API
     public static string Email { get; set; } = Environment.GetEnvironmentVariable("Email", EnvironmentVariableTarget.Process);
     public static string EmailPassword { get; set; } = Environment.GetEnvironmentVariable("EmailPassword", EnvironmentVariableTarget.Process);
     public static string TenantId { get; set; } = Environment.GetEnvironmentVariable("TenantId", EnvironmentVariableTarget.Process);
-    public static string FrontendUrl { get; set; } = Environment.GetEnvironmentVariable("FrontendUrl", EnvironmentVariableTarget.Process);
     public static string JwtIssuer { get; set; } = Environment.GetEnvironmentVariable("JwtIssuer", EnvironmentVariableTarget.Process);
     public static string JwtAudience { get; set; } = Environment.GetEnvironmentVariable("JwtAudience", EnvironmentVariableTarget.Process);
     public static string JwtSecretKey { get; set; } = Environment.GetEnvironmentVariable("JwtSecretKey", EnvironmentVariableTarget.Process);
