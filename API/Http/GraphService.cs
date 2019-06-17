@@ -18,14 +18,14 @@ namespace API.Http
     private readonly string _baseUri = "https://graph.microsoft.com";
     private readonly string _apiBetaVersion = "beta";
     private readonly string _apiVersion = "v1.0";
-    private readonly Guid _organizerId = new Guid("1b03e5e9-65e6-473b-9882-baf1526f3d0b");
+    private readonly Guid _organizerId = new Guid("9fdf894c-3aaf-4bdc-9474-b4bf9e8d71c2");
     private readonly string _grantType = "client_credentials";
     private readonly string _clientId;
     private readonly string _scope;
     private readonly string _clientSecret;
     private string _mailerViewsRoot = "./Mailer/MailerViews";
 
-public GraphService()
+    public GraphService()
     {
       _baseAuthUri = $"https://login.microsoftonline.com/{Settings.TenantId}/oauth2/v2.0/token";
       _headers = new Dictionary<string, string>();
@@ -50,7 +50,7 @@ public GraphService()
       {
         MeetingType = "meetNow",
         Subject = "Nuevo Foundation - Virtual Session",
-        AccessLevel = "everyone", 
+        AccessLevel = "everyone",
         Participants = new Participants
         {
           Organizer = new Organizer

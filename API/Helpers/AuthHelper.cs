@@ -134,7 +134,21 @@ namespace API.Helpers
       JwtAuthDto jwtAuthToken = GenerateJsonWebToken(new JwtUserClaimsDto(member.Id.ToString()));
       jwtAuthToken.RefreshToken = member.RefreshToken;
 
-      await _storage.CreateItemAsync(member);
+      try
+      {
+        await _storage.CreateItemAsync(member);
+      }
+      catch (Microsoft.Azure.Documents.DocumentClientException ex)
+      {
+        if (ex.StatusCode == System.Net.HttpStatusCode.Conflict)
+        {
+          return new BadRequestObjectResult(new ErrorResponseDto(ValidationResponseHelper.InvalidDuplicateEmail));
+        }
+        else
+        {
+          return new BadRequestResult();
+        }
+      }
 
       return new OkObjectResult(jwtAuthToken);
     }

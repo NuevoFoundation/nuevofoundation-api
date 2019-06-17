@@ -44,7 +44,9 @@ Running the app locally requires a set of secrets. The secrets are stored locall
   "TenantId": "omitted",
   "Email": "omitted",
   "EmailPassword": "omitted",
-  "FrontendUrl": "http://localhost:3000"
+  "JwtSecretKey": "omitted",
+  "JwtSecretIssuer": "omitted",
+  "JwtAudience": "omitted",
 }
 ```
 
@@ -57,7 +59,7 @@ Below is a brief description for each secret
 
 `Email`, `EmailPassword` - Credentials for sending email via Smtp client
 
-`FrontendUrl` - URL for emails sent via smtp client
+`JwtSecretKey`, `JwtSecretIssuer`, `JwtAudience` - Values for jwt token validation
 
 ## Contributing
 
