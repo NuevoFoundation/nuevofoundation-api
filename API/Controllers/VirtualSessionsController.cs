@@ -58,19 +58,32 @@ namespace API.Controllers
     #if !DEBUG
     [Authorize]
     #endif
-    public async Task Put(string id, [FromBody]VirtualSession virtualSession)
+    public async Task<IActionResult> Put(string id, [FromBody]VirtualSession virtualSession)
     {
       var storedVirtualSession = await _virtualSessionsStorage.GetItemAsync(id);
       if (storedVirtualSession.VolunteerId == Guid.Empty)
       {
         storedVirtualSession.VolunteerId = virtualSession.VolunteerId;
-        storedVirtualSession.TimePreferenceSelected = virtualSession.TimePreferenceSelected;
+        storedVirtualSession.TimePreferenceOne = virtualSession.TimePreferenceOne.ToUniversalTime();
+        storedVirtualSession.TimePreferenceTwo = virtualSession.TimePreferenceTwo.ToUniversalTime();
+        storedVirtualSession.TimePreferenceThree = virtualSession.TimePreferenceThree.ToUniversalTime();
+        storedVirtualSession.TimePreferenceSelected = virtualSession.TimePreferenceSelected.ToUniversalTime();
         var volunteer = await _membersStorage.GetItemAsync(virtualSession.VolunteerId.ToString());
         var educator = await _membersStorage.GetItemAsync(storedVirtualSession.EducatorId.ToString());
-        await _virtualSessionsStorage.UpdateItemAsync(id, storedVirtualSession);
-        var teamsMeeting = await _graphService.CreateTeamsMeeting();
-        await _graphService.ScheduleOnlineMeeting(virtualSession.TimePreferenceSelected, volunteer, educator, teamsMeeting);
+        try
+        {
+          var teamsMeeting = await _graphService.CreateTeamsMeeting();
+          await _graphService.ScheduleOnlineMeeting(virtualSession.TimePreferenceSelected, volunteer, educator, teamsMeeting);
+          await _virtualSessionsStorage.UpdateItemAsync(id, storedVirtualSession);
+          return new OkResult();
+        }
+        catch
+        {
+          return new BadRequestObjectResult(new ErrorResponseDto(ValidationResponseHelper.MeetingCreationError));
+        }
       }
+
+      return new BadRequestObjectResult(new ErrorResponseDto(ValidationResponseHelper.VirtualSessionAlreadyConfirmed));
     }
 
     private async Task<List<string>> GetCurrentVolunteerEmails()
