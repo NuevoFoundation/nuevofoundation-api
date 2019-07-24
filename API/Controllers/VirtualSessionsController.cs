@@ -38,6 +38,15 @@ namespace API.Controllers
       return virtualSession;
     }
 
+    // GET api/virtualsessions/5
+    [HttpGet("educator/{memberid}")]
+    public async Task<IEnumerable<VirtualSession>> GetAllVirtualSessions(Guid memberid)
+    {
+      var educatorSessions = new List<VirtualSession>();
+      var sessions = await _virtualSessionsStorage.GetItemsAsync(vs => vs.EducatorId == memberid);
+      return sessions;
+    }
+
     // POST api/virtualsessions
     [HttpPost]
     #if !DEBUG
