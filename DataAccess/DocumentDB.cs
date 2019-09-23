@@ -67,6 +67,22 @@ namespace DataAccess
       return results;
     }
 
+    public async Task<IEnumerable<T>> GetItemsAsync()
+    {
+      IDocumentQuery<T> query = _client.CreateDocumentQuery<T>(
+          UriFactory.CreateDocumentCollectionUri(_databaseId, _collectionId),
+          new FeedOptions { MaxItemCount = -1 })
+          .AsDocumentQuery();
+
+      List<T> results = new List<T>();
+      while (query.HasMoreResults)
+      {
+        results.AddRange(await query.ExecuteNextAsync<T>());
+      }
+
+      return results;
+    }
+
     public async Task<Document> CreateItemAsync(T item)
     {
       return await _client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(_databaseId, _collectionId), item);
@@ -129,7 +145,7 @@ namespace DataAccess
             },
             new RequestOptions { OfferThroughput = 400 });
         }
-        else if (e.StatusCode == System.Net.HttpStatusCode.NotFound && _collectionId == "virtualsessions")
+        else if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
         {
           await _client.CreateDocumentCollectionAsync(
             UriFactory.CreateDatabaseUri(_databaseId),
