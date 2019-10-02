@@ -128,7 +128,7 @@ namespace API.Helpers
         Email = registerDto.Email,
         PasswordHashed = HashPassword(null, registerDto.Password),
         RefreshToken = GenerateToken(),
-        MemberType = "educator"
+        MemberType = registerDto.MemberType
       };
 
       JwtAuthDto jwtAuthToken = GenerateJsonWebToken(new JwtUserClaimsDto(member.Id.ToString()));
