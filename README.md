@@ -18,6 +18,8 @@ Nuevo Foundation API
 
 ```bash
 git clone git@github.com:NuevoFoundation/nuevofoundation-api.git
+OR
+git clone https://github.com/NuevoFoundation/nuevofoundation-api.git
 cd nuevofoundation-api
 
 # Install dependencies
