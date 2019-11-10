@@ -33,7 +33,9 @@ dotnet test
 ```
 
 ## Set App Secrets
-Running the app locally requires a set of secrets. The secrets are stored locally on your system. Here's the sample file that is stored on the system with critical secrets omitted. More info for setting the secrets on your system can be found [here](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.2&tabs=linux#set-a-secret).
+Running the app locally requires a set of secrets. The secrets are stored locally on your system. Here's the sample file that is stored on the system with critical secrets omitted. More info for setting the secrets on your system can be found [here](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.2&tabs=linux#set-a-secret). 
+
+> Note - For populating omitted values you can reference the app settings used on the staging environment. These can be found on the Azure DevOps release defintion.
 
 ```
 {
@@ -47,8 +49,8 @@ Running the app locally requires a set of secrets. The secrets are stored locall
   "Email": "omitted",
   "EmailPassword": "omitted",
   "JwtSecretKey": "omitted",
-  "JwtSecretIssuer": "omitted",
-  "JwtAudience": "omitted",
+  "JwtIssuer": "https://localhost:5001",
+  "JwtAudience": "http://localhost:3000",
 }
 ```
 
